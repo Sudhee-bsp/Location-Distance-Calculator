@@ -1,8 +1,14 @@
 import React from "react";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
+
+import {
+  getDatabase,
+  ref,
+  onValue,
+} from "firebase/database";
 
 function Calc() {
   const [lat1, setLat1] = useState();
@@ -20,6 +26,19 @@ function Calc() {
 
   const baseURL = "https://api.distancematrix.ai/maps/api/distancematrix/json?";
   const keytoken = "QK9rFKo3OBZuDdXC0d6Dvo9OEHVax";
+
+  useEffect(() => {
+    const db = getDatabase();
+    const DRef = ref(db, '/buses/hemanthtest/coord');
+    onValue(DRef, (snapshot) => {
+        const data = snapshot.val();
+        if(data!=null){
+            setLat2(data.Latitude);
+            setLon2(data.Longitude);
+        }
+    });
+  }, []);
+
 
   const getGeolocation = () => {
     if (navigator.geolocation) {
