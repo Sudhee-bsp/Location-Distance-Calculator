@@ -21,6 +21,17 @@ function Calc() {
   const baseURL = "https://api.distancematrix.ai/maps/api/distancematrix/json?";
   const keytoken = "QK9rFKo3OBZuDdXC0d6Dvo9OEHVax";
 
+  const getGeolocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLat1(position.coords.latitude);
+        setLon1(position.coords.longitude);
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -109,6 +120,21 @@ function Calc() {
               CALCULATE Distance
             </MDBBtn>
           </form>
+
+          <br />
+
+          <p>
+            <MDBBtn
+              size="md"
+              outline
+              rounded
+              style={{ float: "left" }}
+              color="primary"
+              onClick={getGeolocation}
+            >
+              Get Current location
+            </MDBBtn>
+          </p>
 
           <p>
             <MDBBtn
