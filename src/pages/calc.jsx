@@ -33,8 +33,8 @@ function Calc() {
     onValue(DRef, (snapshot) => {
         const data = snapshot.val();
         if(data!=null){
-            setLat2(data.Latitude);
-            setLon2(data.Longitude);
+            setLat2(data.latitude);
+            setLon2(data.longitude);
         }
     });
   }, []);
