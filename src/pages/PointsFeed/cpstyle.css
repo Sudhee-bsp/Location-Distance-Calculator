@@ -1,0 +1,31 @@
+.dropdown-menu.dropdown-menu-dark [data-active='true'] a.dropdown-item, .dropdown-menu.dropdown-menu-dark .dropdown-item:focus, .dropdown-menu.dropdown-menu-dark li:focus .dropdown-item {
+    background-color: #CAD5E2;
+    color: black;
+}
+
+.dropdown-menu.dropdown-menu-dark [data-active='true'] a.dropdown-item, .dropdown-menu.dropdown-menu-dark .dropdown-item:focus, .dropdown-menu.dropdown-menu-dark li:focus .dropdown-item {
+    background-color: #CAD5E2;
+    color: black;
+}
+
+.dropdown-menu-dark .dropdown-item {
+    background-color: #CAD5E2;
+    color: black;
+}
+
+
+button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
+    width: 80%;
+}
+
+/* .dropdown-item {
+    width: 150%;
+} */
+
+.dd-coordinates {
+    float: right;
+}
+
+.dd-point {
+    font-weight: bold;
+}
