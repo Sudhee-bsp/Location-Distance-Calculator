@@ -49,10 +49,10 @@ function Createpoints() {
   useEffect(() => {
     const dbRef = ref(getDatabase());
     onValue(child(dbRef, "locationPoints"), (snapshot) => {
-      console.log(snapshot.val());
+      // console.log(snapshot.val());
       if (snapshot.val().route1 !== undefined) {
         setPoint1(snapshot.val().route1);
-        console.log(point1);
+        // console.log(point1);
       }
       if (snapshot.val().route2 !== undefined) {
         setPoint2(snapshot.val().route2);
@@ -73,10 +73,10 @@ function Createpoints() {
 
     // to display loaded points
     onValue(child(dbRef, "locationPointsTest"), (snapshot) => {
-      console.log(snapshot.val());
+      // console.log(snapshot.val());
       if (snapshot.val().route1 !== undefined) {
         setStop1(snapshot.val().route1);
-        console.log(stop1);
+        // console.log(stop1);
       }
       if (snapshot.val().route2 !== undefined) {
         setStop2(snapshot.val().route2);
@@ -95,29 +95,42 @@ function Createpoints() {
       }
     });
 
+    // function to take object and return sorted timestamp
+    function sortByTimestamp(inputObj) {
+      let result = Object.values(inputObj).sort(function (a, b) {
+        return a.Timestamp > b.Timestamp
+          ? 1
+          : a.Timestamp < b.Timestamp
+          ? -1
+          : 0;
+      });
+      console.log(result);
+      return result;
+    }
+
     setTimeout(() => {
       if (routenum === "1") {
         setDisplay(point1);
-        console.log(displayStop);
-        setDisplayStop(stop1);
+        // console.log(displayStop);
+        setDisplayStop(sortByTimestamp(stop1));
       } else if (routenum === "2") {
         setDisplay(point2);
-        setDisplayStop(stop2);
+        setDisplayStop(sortByTimestamp(stop2));
       } else if (routenum === "3") {
         setDisplay(point3);
-        setDisplayStop(stop3);
+        setDisplayStop(sortByTimestamp(stop3));
       } else if (routenum === "4") {
         setDisplay(point4);
-        setDisplayStop(stop4);
+        setDisplayStop(sortByTimestamp(stop4));
       } else if (routenum === "5") {
         setDisplay(point5);
-        setDisplayStop(stop5);
+        setDisplayStop(sortByTimestamp(stop5));
       } else if (routenum === "6") {
         setDisplay(point6);
-        setDisplayStop(stop6);
+        setDisplayStop(sortByTimestamp(stop6));
       }
     }, 2000);
-  }, [routenum]);
+  }, [routenum, displayStop]);
 
   const getGeolocation = () => {
     if (navigator.geolocation) {
@@ -140,7 +153,7 @@ function Createpoints() {
       alert("Please fill in all fields");
     }
 
-    const timestamp = new Date().toLocaleString();
+    const timestamp = new Date().toLocaleTimeString();
     const dbRef = ref(getDatabase());
 
     set(child(dbRef, `locationPointsTest/route${routenum}/${stopname}`), {
@@ -329,7 +342,9 @@ function Createpoints() {
                       </span>
                       <span className="dd-coordinates">
                         {displayStop[point].Latitude},{" "}
-                        {displayStop[point].Longitude}
+                        {displayStop[point].Longitude} <br />
+                        {"Time: "}
+                        {displayStop[point].Timestamp}
                       </span>
                     </MDBListGroupItem>
                   );
